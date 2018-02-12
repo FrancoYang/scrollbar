@@ -6,7 +6,7 @@
 	<style>
 		#div1{
 			width: 30px;
-			height: 500px;
+			height: 600px;
 			background: black;
 			position: absolute;
 			left:800px;
@@ -20,6 +20,7 @@
 			left:0px;
 			top:0px;
 		}
+		
 	</style>
 </head>
 <body>
@@ -32,12 +33,21 @@
 	var oDiv1=document.getElementById("div1");
 	var oDiv2=document.getElementById("div2");
 
+	var iMaxTop=oDiv1.offsetHeight-oDiv2.offsetHeight;
+
 	oDiv2.onmousedown=function(ev){
 		var ev=ev||event;
 		var disY=ev.clientY-this.offsetTop;
 		document.onmousemove=function(ev){
 			var ev=ev||event;
-			oDiv2.style.top=ev.clientY-disY+'px';
+			var T=ev.clientY-disY;
+
+			if(T<0){
+				T=0;
+			}else if(T>iMaxTop){
+				T=iMaxTop;
+			}
+			oDiv2.style.top=T+'px';
 		}
 		document.onmouseup=function(){
 			document.onmousemove=document.onmouseup=null;
